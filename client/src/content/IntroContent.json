@@ -1,0 +1,13 @@
+{
+  "title": "One Stop Solution for Hackathon",
+  "text": "The ideal tool designed for organisation and management of Hackathon events in a modern way",
+  "button": [
+    {
+      "title": "Explore"
+    },
+    {
+      "title": "Learn more",
+      "color": "#fff"
+    }
+  ]
+}

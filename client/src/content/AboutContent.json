@@ -1,0 +1,16 @@
+{
+  "title": "About the platform",
+  "text": "Hackathon Manager equips the organizer to host the hackaton in a undemanding way followed by the benefits of interacting and resolving the uncertainty and unsureness of the participants through the chatroom embedded on to the application.",
+  "section": [
+    {
+      "title": "Who are we?",
+      "content": "developers just like for your service",
+      "icon": "notes.svg"
+    },
+    {
+      "title": "Why us?",
+      "content": "Efficient and modern solution to hackathon management",
+      "icon": "notes.svg"
+    }
+  ]
+}

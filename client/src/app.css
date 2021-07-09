@@ -1,0 +1,30 @@
+.enduserselectpage{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+}
+.enduserselectpage button{
+    height: 10vh;
+    width: 20vw;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    width: max-content;
+    background-color: transparent;
+    gap:20px;
+    align-items: center;
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    object-fit: scale-down;
+}
+
+.card img{
+    height: 40vh;
+}
