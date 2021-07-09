@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Runtime Terror",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "runserveronly": "nodemon server.js localhost 5000 ",
+    "client": "cd../client && npm start",
+    "start": "concurrently -n 'server.js,client' \"nodemon server.js localhost 5000\" \"npm run client\""
+  },
+  "author": "Runtime terror",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^6.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.2",
+    "nodemon": "^2.0.10"
+  }
+}
