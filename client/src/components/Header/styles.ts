@@ -55,7 +55,7 @@ export const Burger = styled("div")`
 `;
 
 export const NotHidden = styled("div")`
-  @media only screen and (max-width: 990px) {
+  @media only screen and (max-width: 890px) {
     display: none;
   }
 `;

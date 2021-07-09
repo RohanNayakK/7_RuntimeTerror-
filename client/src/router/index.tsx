@@ -4,7 +4,9 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import routes from "./config";
 import { Styles } from "../styles/styles";
+import SignIn from "../RouteComponents/Signin";
 import {useHistory} from 'react-router-dom'
+import SignUp from "../RouteComponents/signup";
 
 const Router = () => {
     const history=useHistory();
@@ -25,6 +27,10 @@ const Router = () => {
           );
         })}
           <Route path={"/signin"}>
+             <SignIn/>
+          </Route>
+          <Route path={"/register"}>
+              <SignUp/>
           </Route>
       </Switch>
     </Suspense>
