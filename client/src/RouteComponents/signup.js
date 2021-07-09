@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from 'react-router-dom'
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import {useState} from "react";
+import axios from "axios";
 
 function Copyright() {
     return (
@@ -47,6 +51,55 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+
+    const [value, setValue] = React.useState('Participant');
+
+    const [registerform, setRegisterform] = useState({
+        firstname : '',
+        lastname : '',
+        username : '',
+        password : '',
+        usertype :''
+    })
+
+    const regchnage=(e)=>{
+        let newreg = {...registerform}
+        newreg[e.target.id] = e.target.value;
+        console.log(newreg)
+        setRegisterform(newreg)
+    }
+    const submitUser=()=>{
+        axios.post("http://localhost:5000/register", {
+            firstname: registerform.firstname,
+            lastname: registerform.lastname,
+            username: registerform.username,
+            password: registerform.password,
+            usertype : value
+        })
+            .then((res) => {
+                return (res)
+            })
+            .then((resdata) => {
+                alert(`${resdata.data}`)
+            })
+            .catch((err) => {
+                alert("Error")
+            })
+
+    }
+
+
+
+
+    const handleChange = (event) => {
+        setValue(`${event.target.value}`);
+
+    };
+
+    useEffect(()=>{
+        console.log(value)
+    },[value])
+
     const classes = useStyles();
 
     return (
@@ -65,12 +118,14 @@ export default function SignUp() {
                             <TextField
                                 autoComplete="fname"
                                 name="firstName"
+                                value={registerform.firstname}
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="firstName"
+                                id="firstname"
                                 label="First Name"
                                 autoFocus
+                                onChange={(e)=>regchnage(e)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -78,10 +133,12 @@ export default function SignUp() {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="lastName"
+                                id="lastname"
+                                value={registerform.lastname}
                                 label="Last Name"
                                 name="lastName"
                                 autoComplete="lname"
+                                onChange={(e)=>regchnage(e)}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -89,10 +146,12 @@ export default function SignUp() {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="email"
+                                value={registerform.username}
+                                id="username"
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                onChange={(e)=>regchnage(e)}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -100,17 +159,26 @@ export default function SignUp() {
                                 variant="outlined"
                                 required
                                 fullWidth
+                                value={registerform.password}
                                 name="password"
                                 label="Password"
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                onChange={(e)=>regchnage(e)}
                             />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                                <FormControlLabel value={"Organizer"} control={<Radio />} label="Organizer" />
+                                <FormControlLabel value={"Participant"} control={<Radio />} label="Participant" />
+                            </RadioGroup>
                         </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel
                                 control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
+                                label="accept our Terms and Conditions"
                             />
                         </Grid>
                     </Grid>
@@ -120,6 +188,7 @@ export default function SignUp() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={submitUser}
                     >
                         Sign Up
                     </Button>
