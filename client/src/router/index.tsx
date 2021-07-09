@@ -1,16 +1,18 @@
-import {lazy, Suspense, useEffect, useState} from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import routes from "./config";
 import { Styles } from "../styles/styles";
 import SignIn from "../RouteComponents/Signin";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import SignUp from "../RouteComponents/signup";
+import { Dashboard } from "@material-ui/icons";
+import DashboardUser from "../RouteComponents/DashboardUser";
 
 const Router = () => {
-    const history=useHistory();
-    let currentpath = useHistory().location.pathname;
+  const history = useHistory();
+  let currentpath = useHistory().location.pathname;
 
   return (
     <Suspense fallback={null}>
@@ -26,12 +28,15 @@ const Router = () => {
             />
           );
         })}
-          <Route path={"/signin"}>
-             <SignIn/>
-          </Route>
-          <Route path={"/register"}>
-              <SignUp/>
-          </Route>
+        <Route path={"/signin"}>
+          <SignIn />
+        </Route>
+        <Route path={"/register"}>
+          <SignUp />
+        </Route>
+        <Route path={"/dashboarduser"}>
+          <DashboardUser />
+        </Route>
       </Switch>
     </Suspense>
   );
