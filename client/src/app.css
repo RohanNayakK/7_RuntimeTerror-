@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap');
+
 .enduserselectpage {
   display: flex;
   justify-content: space-evenly;
@@ -89,4 +91,60 @@
   z-index: 2;
   left: -2%;
   bottom: 0;
+}
+
+.container.pricing-container{
+  margin-top: 100px;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.container.pricing-container .card-header h4{
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-image: linear-gradient(180deg, #eee, #fff 100px, #fff);
+}
+
+.container {
+   /* max-width: 960px;  */
+
+   grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto;
+
+}
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.standard-Card{
+  position: relative;
+  right: 10px;
+}
+
+.card-text{
+  color: black;
+}
+
+/* .standard{
+  color: #0275d8;
+} */
+
+.premium{
+  color: #d9534f;
+}
+
+.basic-card{
+  max-width: 300px;
+  width: 100%;
+}
+
+.pricings h1{
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  position: relative;
+  bottom: 20px;
 }

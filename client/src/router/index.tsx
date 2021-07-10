@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import SignUp from "../RouteComponents/signup";
 import { Dashboard } from "@material-ui/icons";
 import DashboardUser from "../RouteComponents/DashboardUser";
+import Pricing from "../RouteComponents/pricing";
 
 const Router = () => {
   const history = useHistory();
@@ -30,6 +31,9 @@ const Router = () => {
         })}
         <Route path={"/signin"}>
           <SignIn />
+        </Route>
+        <Route path={"/pricing"}>
+          <Pricing />
         </Route>
         <Route path={"/register"}>
           <SignUp />
