@@ -15,13 +15,19 @@ import '../app.css'
 import userlogo from '../employee.png'
 import organiserlogo from '../manager.png'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
+import {useHistory} from "react-router-dom";
+let {GoogleLogin} = require('react-google-login')
+
+
+
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
-                Your Website
+                Hackathon Manager
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -50,8 +56,52 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+    let history = useHistory();
+
+    const [userlogged,setUserlogged] = useState(false)
+
+    const[loginform,setLoginform] = useState({
+        username : '',
+        password : ''
+    })
+
+
     const [typeOfUser,settypeOfUser] = useState("")
     const classes = useStyles();
+
+    const responseGoogle = (response) => {
+        console.log(response);
+        console.log(response.profileObj);
+        axios.post("/login",{
+            firstname : response.profileObj.givenName,
+            lastname : response.profileObj.familyName,
+            username : response.profileObj.email,
+            googleauth : response.profileObj.googleId,
+        }).then((resdata)=>{
+
+        }).catch((err)=>{
+            alert("Server Down!")
+        })
+    }
+
+
+
+
+    const loginuser=()=>{
+        axios.post('http://localhost:5000/login',{
+            username : loginform.username,
+            password : loginform.password
+        }).then((res)=>{
+            return(res)
+        }).then((resdata)=>{
+            if(resdata){
+                history.push("/dashboarduser")
+            }
+        })
+            .catch(()=>{
+                alert("Server Down")
+            })
+    }
 
     return (
 
@@ -90,7 +140,17 @@ export default function SignIn() {
             <Typography component="h1" variant="h5">
                 Sign in
             </Typography>
-            <form className={classes.form} noValidate>
+            <GoogleLogin
+                clientId="943118690301-pji32ov8iirj0jpg739dopds55aqqcgo.apps.googleusercontent.com"
+                render={renderProps => (
+                    <button className={"googleauth"} onClick={renderProps.onClick} disabled={renderProps.disabled}>Continue with Google</button>
+                )}
+                buttonText="Continue with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+            />
+            <form className={classes.form} Validate>
                 <TextField
                     variant="outlined"
                     margin="normal"
@@ -113,6 +173,7 @@ export default function SignIn() {
                     id="password"
                     autoComplete="current-password"
                 />
+
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary"/>}
                     label="Remember me"
@@ -123,6 +184,7 @@ export default function SignIn() {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    onclick={loginuser}
                 >
                     Sign In
                 </Button>

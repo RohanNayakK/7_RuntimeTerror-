@@ -171,8 +171,11 @@ export default function SignUp() {
 
                         <Grid item xs={12}>
                             <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                                <FormControlLabel value={"Organizer"} control={<Radio />} label="Organizer" />
-                                <FormControlLabel value={"Participant"} control={<Radio />} label="Participant" />
+                                <div>
+                                    <FormControlLabel value={"Organizer"} control={<Radio />} label="Organizer" />
+                                    <FormControlLabel value={"Participant"} control={<Radio />} label="Participant" />
+                                </div>
+
                             </RadioGroup>
                         </Grid>
                         <Grid item xs={12}>
