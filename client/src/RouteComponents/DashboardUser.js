@@ -1,34 +1,64 @@
 import React from "react";
 import "../../src/app.css";
 import Button from "@material-ui/core/Button";
+import applogo from "../hackathon.png";
+import { useHistory } from "react-router";
+import MediaCard from "./dashcards";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const DashboardUser = () => {
+  let history = useHistory;
+  const [hackathon, setHackathons] = useState([
+    {
+      name: "Hackostav",
+      info: " Hello world",
+    },
+  ]);
+  useEffect(() => {
+    fetch("http://localhost:5000/dashboarduser")
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((resdata) => {
+        setHackathons(resdata);
+      });
+  }, []);
   return (
     <div className="dashboard">
       <div className="sidebar">
         <Button variant="contained" color="primary">
-          option1
+          Live Hackathons
         </Button>
         <Button variant="contained" color="primary">
-          option1
+          Your hackathons
         </Button>
         <Button variant="contained" color="primary">
-          option1
+          Review
         </Button>
         <Button variant="contained" color="primary">
-          option1
-        </Button>
-        <Button variant="contained" color="primary">
-          option1
+          Shop
         </Button>
       </div>
       <div className="dashnavbar">
-        <Button variant="contained" color="primary">
+        <img src={applogo} height="10vh"></img>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.push("/");
+          }}
+        >
           sign out
         </Button>
       </div>
       <div className="dashmain">
-        <h1>main content</h1>
+        {hackathon.map((item) => {
+          <MediaCard name={item.name} info={item.info} />;
+          console.log(hackathon);
+        })}
       </div>
     </div>
   );

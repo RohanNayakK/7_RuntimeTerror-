@@ -22,6 +22,11 @@ app.use(cors());
 
 app.use(express.json());
 
+let hackarray = [{ name: "hackostsav", info: "hackathon hosted by SMVITM" }];
+app.get("/dashboarduser", (req, res) => {
+  res.json(hackarray);
+});
+
 const User = new mongoose.Schema({
   firstname: {
     type: String,
@@ -75,7 +80,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.post("/login",  (req, res) => {
+app.post("/login", (req, res) => {
   const username = req.body.username;
   if (req.body.googleauth) {
     UserModel.findOne({ googleauth: `${req.body.googleauth}` }).exec(
@@ -96,7 +101,7 @@ app.post("/login",  (req, res) => {
               lastname: req.body.lastname,
               username: req.body.username,
               googleauth: req.body.googleauth,
-              usertype : req.body.usertype
+              usertype: req.body.usertype,
             });
             console.log(newUser);
             newUser.save();
@@ -119,7 +124,7 @@ app.post("/login",  (req, res) => {
     );
   }
 
-   UserModel.findOne({ username: `${username}` }).exec((err, user) => {
+  UserModel.findOne({ username: `${username}` }).exec((err, user) => {
     if (err) {
       console.log("Error ");
     }
