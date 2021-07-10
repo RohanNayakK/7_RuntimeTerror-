@@ -62,7 +62,10 @@ export default function SignIn() {
     password: "",
   });
 
-  const [typeOfUser, settypeOfUser] = useState("");
+  const [typeOfUser, settypeOfUser] = useState({
+    selected : false,
+    type : "Participant"
+  });
   const classes = useStyles();
 
   const responseGoogle = (response) => {
@@ -74,17 +77,18 @@ export default function SignIn() {
         lastname: response.profileObj.familyName,
         username: response.profileObj.email,
         googleauth: response.profileObj.googleId,
+        usertype : typeOfUser.type
       })
       .then((resdata) => {
         console.log(resdata);
-        if (resdata.authenticatedflag == true) {
+        if (resdata.data.authenticatedflag == true) {
           history.push("/dashboarduser");
         } else {
           alert("Wrong credentials");
         }
       })
       .catch((err) => {
-        alert("Server Down!");
+        alert("Server Error");
       });
   };
 
@@ -103,11 +107,11 @@ export default function SignIn() {
         }
       })
       .catch(() => {
-        alert("Server Down");
+        alert("Server Error");
       });
   };
 
-  return typeOfUser === "" ? (
+  return typeOfUser.selected === false ? (
     <div className={"enduserselectpage"}>
       <span className={"card"}>
         <img src={userlogo} />
@@ -115,7 +119,10 @@ export default function SignIn() {
           variant="contained"
           color="primary"
           onClick={() => {
-            settypeOfUser("selected");
+            settypeOfUser({
+              selected : true,
+              type : "Participant"
+            });
           }}
         >
           Participant
@@ -127,7 +134,10 @@ export default function SignIn() {
           variant="contained"
           color="primary"
           onClick={() => {
-            settypeOfUser("selected");
+            settypeOfUser({
+              selected : true,
+              type : "Organizer"
+            });
           }}
         >
           Organiser

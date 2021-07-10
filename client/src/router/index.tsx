@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import {lazy, Suspense, useEffect, useRef, useState} from "react";
 import { Switch, Route } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -10,9 +10,11 @@ import SignUp from "../RouteComponents/signup";
 import { Dashboard } from "@material-ui/icons";
 import DashboardUser from "../RouteComponents/DashboardUser";
 
+
 const Router = () => {
   const history = useHistory();
   let currentpath = useHistory().location.pathname;
+
 
   return (
     <Suspense fallback={null}>
@@ -28,6 +30,7 @@ const Router = () => {
             />
           );
         })}
+
         <Route path={"/signin"}>
           <SignIn />
         </Route>
@@ -40,6 +43,7 @@ const Router = () => {
       </Switch>
     </Suspense>
   );
+
 };
 
 export default Router;

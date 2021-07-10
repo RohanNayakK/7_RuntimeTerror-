@@ -75,7 +75,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.post("/login", async (req, res) => {
+app.post("/login",  (req, res) => {
   const username = req.body.username;
   if (req.body.googleauth) {
     UserModel.findOne({ googleauth: `${req.body.googleauth}` }).exec(
@@ -96,14 +96,15 @@ app.post("/login", async (req, res) => {
               lastname: req.body.lastname,
               username: req.body.username,
               googleauth: req.body.googleauth,
+              usertype : req.body.usertype
             });
             console.log(newUser);
             newUser.save();
             res.send({
               message: "Logged In Suceesfully",
               loggedusername: `${newUser.username}`,
-              firstname: `${user.firstname}`,
-              lastname: `${user.lastaname}`,
+              firstname: `${newUser.firstname}`,
+              lastname: `${newUser.lastaname}`,
               authenticatedflag: true,
             });
           }
@@ -118,7 +119,7 @@ app.post("/login", async (req, res) => {
     );
   }
 
-  await UserModel.findOne({ username: `${username}` }).exec((err, user) => {
+   UserModel.findOne({ username: `${username}` }).exec((err, user) => {
     if (err) {
       console.log("Error ");
     }

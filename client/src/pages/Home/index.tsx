@@ -7,6 +7,7 @@ import ProductContent from "../../content/ProductContent.json";
 import ContactContent from "../../content/ContactContent.json";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Loader from '../../RouteComponents/loader'
 
 const Contact = lazy(() => import("../../components/ContactForm"));
 const MiddleBlock = lazy(() => import("../../components/MiddleBlock"));
@@ -17,6 +18,7 @@ const ContentBlock = lazy(() => import("../../components/ContentBlock"));
 const Home = () => {
   return (
       <>
+        <Loader/>
       <Header/>
     <Container>
       <ScrollToTop />
