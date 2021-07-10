@@ -11,12 +11,11 @@ import { Dashboard } from "@material-ui/icons";
 import DashboardUser from "../RouteComponents/DashboardUser";
 import Pricing from "../RouteComponents/pricing";
 import Checkout from "../RouteComponents/checkout.js";
-
+import DashboardOrganiser from "../RouteComponents/DashboardOrganiser";
 
 const Router = () => {
   const history = useHistory();
   let currentpath = useHistory().location.pathname;
-
 
   return (
     <Suspense fallback={null}>
@@ -47,6 +46,9 @@ const Router = () => {
         </Route>
         <Route path={"/dashboarduser"}>
           <DashboardUser />
+        </Route>
+        <Route path={"/dashboardorganiser"}>
+         <DashboardOrganiser/>
         </Route>
       </Switch>
     </Suspense>

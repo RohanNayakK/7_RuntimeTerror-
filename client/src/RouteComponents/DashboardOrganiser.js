@@ -22,7 +22,6 @@ import {mainListItems,secondaryListItems} from './listItems'
 import Button from '@material-ui/core/Button';
 import MediaCard from "./dashcards";
 import HostHackathonform from "./hostHackathonform";
-import {useHistory} from 'react-router-dom'
 
 function Copyright() {
     return (
@@ -118,8 +117,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DashboardUser() {
-    let history = useHistory();
+export default function DashboardOrganiser() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -133,10 +131,6 @@ export default function DashboardUser() {
 
     }
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-    const signoutfunc=()=>{
-        history.push('/')
-    }
 
     return (
 
@@ -161,13 +155,7 @@ export default function DashboardUser() {
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
-                    <Button variant="contained" color="primary"
-                    onClick={signoutfunc}
-                    >
-                        Sign out
-                    </Button>
                 </Toolbar>
-
             </AppBar>
             <Drawer
                 variant="permanent"
@@ -192,10 +180,15 @@ export default function DashboardUser() {
                     <Grid container spacing={3}>
                         {/* Chart */}
                         <Grid item xs={12} md={8} lg={9}>
-                            <h1>Live Hackathons</h1>
-                            <Link to={"/dashboarduser/new"}>
-                                <MediaCard/>
-                            </Link>
+                            <Button variant="contained" color="primary"
+                            onClick={showform}
+                            >
+                                Host a Hackathon
+                            </Button>
+                            <div className={"hostform"}>
+                                <HostHackathonform/>
+                            </div>
+
                         </Grid>
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={4} lg={3}>

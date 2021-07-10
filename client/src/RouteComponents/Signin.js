@@ -81,9 +81,13 @@ export default function SignIn() {
       })
       .then((resdata) => {
         console.log(resdata);
-        if (resdata.data.authenticatedflag == true) {
+        if (resdata.data.authenticatedflag == true && resdata.data.usertype ==="Participant") {
           history.push("/dashboarduser");
-        } else {
+        }
+        else if (resdata.data.authenticatedflag == true && resdata.data.usertype ==="Organizer") {
+          history.push("/dashboardorganiser");
+        }
+        else {
           alert("Wrong credentials");
         }
       })

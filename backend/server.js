@@ -22,7 +22,24 @@ app.use(cors());
 
 app.use(express.json());
 
-let hackarray = [{ name: "hackostsav", info: "hackathon hosted by SMVITM" }];
+let hackarray = [];
+
+mongoose.connection.once('open',(err)=>{
+  mongoose.connection.db.collection("hackthons",(err,collection)=>{
+    collection.find({}).toArray((err,data)=>{
+      for(let i=0;i<data.length;i++){
+        hackarray.push(data[i])
+      }
+      console.log(hackarray)
+    })
+  })
+})
+
+app.get("/",(req, res) => {
+res.json(hackarray)
+})
+
+
 app.get("/dashboarduser", (req, res) => {
   res.json(hackarray);
 });
@@ -51,6 +68,44 @@ const User = new mongoose.Schema({
     type: String,
   },
 });
+
+const Hackathons = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  noofteams: {
+    type: Number,
+    required: true,
+  },
+  desc: {
+    type: String,
+    required: true,
+  },
+  organisername: {
+    type: String,
+  },
+  fees: {
+    type: Number,
+    required: true,
+  },
+});
+const HackathonModel = mongoose.model("hackthon", Hackathons);
+
+app.post("/host",(req,res)=>{
+  const newHackathon = new HackathonModel({
+    name: req.body.ename,
+    noofteams: req.body.noofteams,
+    desc: req.body.desc,
+    organisername: req.body.name,
+    fees: req.body.fees,
+  });
+  newHackathon.save();
+
+})
+
+
+
 const UserModel = mongoose.model("users", User);
 const salt = bcrypt.genSaltSync(10);
 app.post("/register", (req, res) => {
@@ -91,6 +146,7 @@ app.post("/login", (req, res) => {
             message: "Logged In Suceesfully",
             loggedusername: `${user.username}`,
             authenticatedflag: true,
+            usertype: req.body.usertype,
           });
         }
         if (!user) {
@@ -111,6 +167,7 @@ app.post("/login", (req, res) => {
               firstname: `${newUser.firstname}`,
               lastname: `${newUser.lastaname}`,
               authenticatedflag: true,
+              usertype : newUser.usertype
             });
           }
         }

@@ -40,6 +40,8 @@
 
 .sidebar {
   display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   width: 20vw;
   background-color: lightgray;
@@ -49,6 +51,10 @@
 
 .dashnavbar {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 2%;
+  padding-right: 2%;
   width: 80vw;
   height: 20vh;
   position: absolute;
@@ -57,8 +63,14 @@
   background-color: gainsboro;
 }
 
+.dashnavbar button{
+  height: 10vh;
+}
+
 .dashmain {
   display: flex;
+  flex-direction: column;
+  padding: 20px;
   height: 80vh;
   width: 80vw;
   position: absolute;
@@ -69,7 +81,7 @@
 .googleauth {
   display: flex;
   align-items: center;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Roboto Thin", sans-serif;
   font-size: x-large;
   background-color: white;
   border: 1px solid lightgrey;
@@ -230,4 +242,31 @@ body {
 
 .credit-card{
   padding: 30px;
+}
+
+.mediaCard{
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  width: max-content;
+  background-color: #d9534f;
+
+}
+
+#hackcard{
+  height: max-content;
+}
+
+.sidebar button{
+  width: 200px
+}
+
+.hostform{
+  display: none;
+  height: max-content;
+  width: max-content;
+}
+
+#gridstyle{
+  margin: 2rem;
 }
