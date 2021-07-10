@@ -10,6 +10,7 @@ import SignUp from "../RouteComponents/signup";
 import { Dashboard } from "@material-ui/icons";
 import DashboardUser from "../RouteComponents/DashboardUser";
 import Pricing from "../RouteComponents/pricing";
+import Checkout from "../RouteComponents/checkout.js";
 
 
 const Router = () => {
@@ -40,6 +41,9 @@ const Router = () => {
         </Route>
         <Route path={"/register"}>
           <SignUp />
+        </Route>
+        <Route path={"/checkout"}>
+          <Checkout />
         </Route>
         <Route path={"/dashboarduser"}>
           <DashboardUser />

@@ -1,5 +1,6 @@
 import React from "react";
 import "../app.css";
+import {Link} from "react-router-dom";
 
 function Pricing(){
     return(
@@ -24,7 +25,9 @@ function Pricing(){
                                 <li>Email support</li>
                                 <li>Help center access</li>
                                 </ul>
-                                <button type="button" class="w-100 btn btn-lg bg-dark text-white">Checkout</button>
+                                <Link to="/checkout">
+                                    <button type="button" class="w-100 btn btn-lg bg-dark text-white">Checkout</button>
+                               </Link>
                             </div>
                         </div>
                     </div>
@@ -41,7 +44,9 @@ function Pricing(){
                                 <li>Priority email support</li>
                                 <li>Help center access</li>
                                 </ul>
-                                <button type="button" class="w-100 btn btn-lg btn-primary">Checkout</button>
+                                <Link to="/checkout">
+                                    <button type="button" class="w-100 btn btn-lg btn-primary">Checkout</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -58,7 +63,9 @@ function Pricing(){
                                 <li>Phone and email support</li>
                                 <li>Help center access</li>
                                 </ul>
-                                <button type="button" class="w-100 btn btn-lg btn-danger">Checkout</button>
+                                <Link to="/checkout">
+                                    <button type="button" class="w-100 btn btn-lg btn-danger" >Checkout</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
