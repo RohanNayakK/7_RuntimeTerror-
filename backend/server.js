@@ -6,6 +6,8 @@ const connection = mongoose.connection;
 const port = 5000;
 const bcrypt = require("bcrypt");
 
+
+
 mongoose.connect(
   "mongodb+srv://rohan:nayak@runtimeterror7.b37vj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true }
@@ -21,6 +23,8 @@ mongoose.connection.on("error", (ERRORS) => {
 app.use(cors());
 
 app.use(express.json());
+
+
 
 let hackarray = [];
 
@@ -39,10 +43,10 @@ app.get("/",(req, res) => {
 res.json(hackarray)
 })
 
-
 app.get("/dashboarduser", (req, res) => {
   res.json(hackarray);
 });
+
 
 const User = new mongoose.Schema({
   firstname: {
@@ -84,25 +88,100 @@ const Hackathons = new mongoose.Schema({
   },
   organisername: {
     type: String,
+    required :true
   },
   fees: {
     type: Number,
     required: true,
   },
+  drivelink: {
+    type: String,
+    required: true,
+  },
+  website: {
+    type: String,
+    required: true,
+  },
+
 });
 const HackathonModel = mongoose.model("hackthon", Hackathons);
 
+
+const Participants = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phoneno: {
+    type: Number,
+    required: true,
+  },
+  college: {
+    type: String,
+    required :true
+  },
+  degree: {
+    type: String,
+    required: true,
+  },
+  teamname: {
+    type: String,
+    required: true,
+  },
+  addtionalopt: {
+    type: String,
+    required: true,
+  },
+  hackathon: {
+    type: String,
+    required: true,
+  },
+
+});
+
+const ParticipantModel = mongoose.model("participant", Participants);
+
+
+
+
 app.post("/host",(req,res)=>{
+  console.log("inside host server")
   const newHackathon = new HackathonModel({
     name: req.body.ename,
     noofteams: req.body.noofteams,
     desc: req.body.desc,
-    organisername: req.body.name,
+    organisername: req.body.oname,
     fees: req.body.fees,
+    drivelink : req.body.drivelink,
+    website : req.body.website
   });
   newHackathon.save();
 
 })
+
+
+app.post("/partipantadd",(req,res)=>{
+
+  const newParticipant = new ParticipantModel({
+    name: req.body.name,
+    email: req.body.email,
+    phoneno: req.body.phoneno,
+    degree: req.body.degree,
+    college: req.body.college,
+    teamname : req.body.teamname,
+    addtionalopt: req.body.options,
+    hackathon : req.body.hackathon
+  });
+  console.log(newParticipant)
+  newParticipant.save();
+  res.send()
+})
+
+
 
 
 

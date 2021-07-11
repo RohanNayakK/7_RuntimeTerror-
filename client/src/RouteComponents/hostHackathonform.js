@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -57,12 +57,15 @@ export default function HostHackathonform() {
     };
 
     const hostHackathon=()=>{
+
         axios.post("http://localhost:5000/host", {
             ename: value.ename,
             oname: value.name,
             desc:value.desc,
             noofteams: Number(value.noofteams),
-            fees: Number(value.fees)
+            fees: Number(value.fees),
+            drivelink : value.drivelink,
+            website : value.website
         })
             .then((res) => {
                 return (res)
@@ -137,12 +140,32 @@ export default function HostHackathonform() {
                         fullWidth
                         name="password"
                         label="Registration Fees"
-                        type="password"
                         id="fees"
                         autoComplete="current-password"
                         onChange={handleChange}
                     />
-                    <input type={"file"} placeholder={"Related Attachments"}/>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Drive Link"
+                        id="drivelink"
+                        autoComplete="current-password"
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Your Website"
+                        id="website"
+                        autoComplete="current-password"
+                        onChange={handleChange}
+                    />
 
                     <Button
                         type="submit"

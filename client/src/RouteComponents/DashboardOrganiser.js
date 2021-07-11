@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,7 +20,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {mainListItems,secondaryListItems} from './listItems'
 import Button from '@material-ui/core/Button';
-import MediaCard from "./dashcards";
 import HostHackathonform from "./hostHackathonform";
 
 function Copyright() {
@@ -118,6 +117,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DashboardOrganiser() {
+
+
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {

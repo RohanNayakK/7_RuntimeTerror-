@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,15 +14,17 @@ import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {mainListItems,secondaryListItems} from './listItems'
 import Button from '@material-ui/core/Button';
-import MediaCard from "./dashcards";
 import HostHackathonform from "./hostHackathonform";
 import {useHistory} from 'react-router-dom'
+import Displayhack from "./displayhack";
+import {BrowserRouter as Router,Route,Link,Switch} from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import axios from "axios";
 
 function Copyright() {
     return (
@@ -119,6 +121,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DashboardUser() {
+
+    const [value, setValue] = React.useState({});
+
+    const handleChange = (e) => {
+        let newreg = {...value}
+        newreg[e.target.id] = e.target.value;
+        setValue(newreg)
+    };
+
+
+
+
+    const [hackarray,setHackarray]=useState([])
+    useEffect( ()=> {
+        fetch("http://localhost:5000/dashboarduser")
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+            })
+            .then((resdata) => {
+                console.log(resdata)
+                setHackarray(resdata)
+            })
+    },[])
+
+
+
+
+
+
     let history = useHistory();
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
@@ -138,8 +171,38 @@ export default function DashboardUser() {
         history.push('/')
     }
 
-    return (
+    const[finaltext,setfinaltext] =useState("")
+    const selhackjoin=()=>{
+        let currenthackathon = document.getElementById("selected");
+        setfinaltext( currenthackathon.innerText)
+    }
 
+    const joinhack=(e)=>{
+        e.preventDefault();
+        axios.post("/partipantadd",{
+            name : value.name,
+            email : value.email,
+            phoneno : value.phoneno,
+            teamname : value.teamname,
+            college : value.college,
+            degree : value.degree,
+            options : value.options,
+            hackathon : finaltext
+        }).then((res)=>{
+
+        })
+            .catch(()=>{
+
+            })
+    }
+
+
+
+
+
+    return (
+        <Router>
+            <Switch>
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -186,32 +249,150 @@ export default function DashboardUser() {
                 <Divider />
                 <List>{secondaryListItems}</List>
             </Drawer>
+            <Route exact path={'/dashboarduser'}>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid container spacing={3}>
-                        {/* Chart */}
-                        <Grid item xs={12} md={8} lg={9}>
-                            <h1>Live Hackathons</h1>
-                            <Link to={"/dashboarduser/new"}>
-                                <MediaCard/>
+                            <div><h1>Live Hackathons</h1></div>
+                            <Link style={{ textDecoration: 'none' }} to={"/dashboarduserselec"}>
+                                {
+                                    hackarray.map(item=>(
+                                        <div className={"hackathoncards"}>
+                                            <img src={"https://cdn.ymaws.com/siim.org/resource/resmgr/hackathon/Hackathon-500x286.png"}/>
+                                            <div className={"lastdivcard"}  style={{width:"50%",justifyContent:"flex-start"}}>
+                                                <div id={"selected"}>{item.name}</div>
+                                                <div>Organiser :{item.organisername}</div>
+                                                <div>Description : {item.desc}</div>
+
+                                            </div>
+                                            <div className={"lastdivcard"}>
+                                                <div> Fees : Rs {item.fees}</div>
+                                                <Button variant="contained" color="primary"
+                                                        onClick={(e)=>selhackjoin(e)}
+                                                >
+                                                    Join Now
+                                                </Button>
+                                            </div>
+
+                                        </div>
+
+                                    ))
+                                }
                             </Link>
-                        </Grid>
-                        {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
 
-                        </Grid>
-                        {/* Recent Orders */}
-                        <Grid item xs={12}>
 
-                        </Grid>
-                    </Grid>
+
+
                     <Box pt={4}>
                         <Copyright />
                     </Box>
                 </Container>
             </main>
+            </Route>
+            <Route path={"/dashboarduserselec"}>
+                <main className={classes.content}>
+                    <div className={classes.appBarSpacer} />
+                    <Container maxWidth="sm" className={classes.container}>
+                        <h1 id={"hackformreg"}>Registeration for {finaltext} </h1>
+                        <form className={classes.form} noValidate>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="name"
+                                label="Name"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Phone Number"
+                                id="phoneno"
+                                autoComplete="current-password"
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="College"
+                                id="college"
+                                autoComplete="current-password"
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Degree"
+                                id="degree"
+                                autoComplete="current-password"
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Team Name"
+                                id="teamname"
+                                autoComplete="current-password"
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="options"
+                                label="Additional Option"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={handleChange}
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={joinhack}
+                            >
+                                Join Now
+                            </Button>
+
+                        </form>
+                    </Container>
+                </main>
+            </Route>
         </div>
+            </Switch>
+        </Router>
     );
 }
 
