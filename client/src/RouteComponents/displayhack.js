@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import {useHistory} from 'react-router-dom'
 
 function Copyright() {
     return (
@@ -61,6 +62,12 @@ const useStyles = makeStyles((theme) => ({
 
 let cards = [];
 export default function Displayhack() {
+    let history = useHistory();
+
+    const clickhandle=()=>{
+        alert("hi")
+        history.push("/signin")
+    }
 
     const [hackarray,setHackarray]=useState([])
     useEffect( ()=>{
@@ -101,8 +108,10 @@ export default function Displayhack() {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button size="small" color="primary">
-                                            Join
+                                        <Button size="small" color="primary"
+                                        onClick={clickhandle}
+                                        >
+
                                         </Button>
                                         <Button size="small" color="primary">
                                             Learn More

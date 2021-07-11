@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {React,useState,useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,14 +13,16 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {mainListItems,secondaryListItems} from './listItems'
+import {mainListItems} from './listItems'
 import Button from '@material-ui/core/Button';
 import HostHackathonform from "./hostHackathonform";
+import {BrowserRouter as Router,Route,Link,Switch} from "react-router-dom";
+import Displayhack from "./displayhack";
+
+
 
 function Copyright() {
     return (
@@ -117,10 +119,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DashboardOrganiser() {
-
-
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -135,7 +135,9 @@ export default function DashboardOrganiser() {
 
     return (
 
+        <Router>
         <div className={classes.root}>
+
             <CssBaseline />
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
@@ -156,6 +158,9 @@ export default function DashboardOrganiser() {
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
+                    <Button variant="contained" color="secondary">
+                        Sign Out
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -173,16 +178,17 @@ export default function DashboardOrganiser() {
                 <Divider />
                 <List>{mainListItems}</List>
                 <Divider />
-                <List>{secondaryListItems}</List>
             </Drawer>
+            <Switch>
+            <Route  path={"/dashboardorganiser"}>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
+                <Container maxWidth="sm" className={classes.container}>
                     <Grid container spacing={3}>
                         {/* Chart */}
                         <Grid item xs={12} md={8} lg={9}>
                             <Button variant="contained" color="primary"
-                            onClick={showform}
+                                    onClick={showform}
                             >
                                 Host a Hackathon
                             </Button>
@@ -190,13 +196,6 @@ export default function DashboardOrganiser() {
                                 <HostHackathonform/>
                             </div>
 
-                        </Grid>
-                        {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
-
-                        </Grid>
-                        {/* Recent Orders */}
-                        <Grid item xs={12}>
 
                         </Grid>
                     </Grid>
@@ -205,24 +204,28 @@ export default function DashboardOrganiser() {
                     </Box>
                 </Container>
             </main>
+            </Route>
+                <Route to={"/yourhacks"} >
+                    <main className={classes.content}>
+                        <div className={classes.appBarSpacer} />
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
+                                <h1>Your Hackathons Hosted</h1>
+                                <Displayhack/>
+                            </Grid>
+                            <Box pt={4}>
+                                <Copyright />
+                            </Box>
+                        </Container>
+                    </main>
+                </Route>
+
+
+            </Switch>
+
         </div>
+        </Router>
+
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {mainListItems,secondaryListItems} from './listItems'
+import {mainListItems,secondaryListItems} from './listitems2'
 import Button from '@material-ui/core/Button';
 import HostHackathonform from "./hostHackathonform";
 import {useHistory} from 'react-router-dom'
@@ -25,6 +25,10 @@ import Displayhack from "./displayhack";
 import {BrowserRouter as Router,Route,Link,Switch} from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Card from '@material-ui/core/Card';
 
 function Copyright() {
     return (
@@ -196,7 +200,7 @@ export default function DashboardUser() {
             })
     }
 
-
+    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 
 
@@ -254,9 +258,13 @@ export default function DashboardUser() {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
                             <div><h1>Live Hackathons</h1></div>
-                            <Link style={{ textDecoration: 'none' }} to={"/dashboarduserselec"}>
+                    <div>
+                        <p><a href={"https://google.com"} target='_blank'>Visit Website</a></p>
+
+                        <Link style={{ textDecoration: 'none' }} to={"/dashboarduserselec"}>
                                 {
                                     hackarray.map(item=>(
+                                        <>
                                         <div className={"hackathoncards"}>
                                             <img src={"https://cdn.ymaws.com/siim.org/resource/resmgr/hackathon/Hackathon-500x286.png"}/>
                                             <div className={"lastdivcard"}  style={{width:"50%",justifyContent:"flex-start"}}>
@@ -265,6 +273,7 @@ export default function DashboardUser() {
                                                 <div>Description : {item.desc}</div>
 
                                             </div>
+
                                             <div className={"lastdivcard"}>
                                                 <div> Fees : Rs {item.fees}</div>
                                                 <Button variant="contained" color="primary"
@@ -273,12 +282,16 @@ export default function DashboardUser() {
                                                     Join Now
                                                 </Button>
                                             </div>
-
                                         </div>
+                                        </>
 
                                     ))
                                 }
                             </Link>
+
+                        <p><a href={"https://google.com"} target='_blank'>Visit Website</a></p>
+                    </div>
+
 
 
 
@@ -390,7 +403,9 @@ export default function DashboardUser() {
                     </Container>
                 </main>
             </Route>
+
         </div>
+
             </Switch>
         </Router>
     );

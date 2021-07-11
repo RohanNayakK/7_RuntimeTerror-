@@ -267,7 +267,7 @@ body {
 }
 
 #gridstyle{
-  margin: 2rem;
+  margin: 50px;
 }
 
 #gridcont{
@@ -305,5 +305,12 @@ body {
 
 #joinbtn{
   width: 50%;
+  align-items: center;
+}
+
+.sponsors{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
