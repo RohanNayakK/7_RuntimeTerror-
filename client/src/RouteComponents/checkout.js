@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Buyer's information", "Payment details", "Review your order"];
 
 function getStepContent(step) {
   switch (step) {
@@ -96,9 +96,7 @@ export default function Checkout() {
       <CssBaseline />
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
+          <Typography variant="h6" color="inherit" noWrap></Typography>
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>

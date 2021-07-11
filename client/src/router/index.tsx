@@ -1,4 +1,4 @@
-import {lazy, Suspense, useEffect, useRef, useState} from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -11,7 +11,7 @@ import { Dashboard } from "@material-ui/icons";
 import DashboardUser from "../RouteComponents/DashboardUser";
 import Pricing from "../RouteComponents/pricing";
 import Checkout from "../RouteComponents/checkout.js";
-import DashboardOrganiser from "../RouteComponents/DashboardOrganiser";
+import DashboardOrganiser from "../RouteComponents/DashboardUser";
 
 const Router = () => {
   const history = useHistory();
@@ -48,12 +48,11 @@ const Router = () => {
           <DashboardUser />
         </Route>
         <Route path={"/dashboardorganiser"}>
-         <DashboardOrganiser/>
+          <DashboardOrganiser />
         </Route>
       </Switch>
     </Suspense>
   );
-
 };
 
 export default Router;

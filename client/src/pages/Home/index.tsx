@@ -1,4 +1,4 @@
-import {lazy, useEffect, useState} from "react";
+import { lazy, useEffect, useState } from "react";
 import IntroContent from "../../content/IntroContent.json";
 import MiddleBlockContent from "../../content/MiddleBlockContent.json";
 import AboutContent from "../../content/AboutContent.json";
@@ -9,29 +9,17 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Displayhack from "../../RouteComponents/displayhack";
 
-
-
-
-
 const Contact = lazy(() => import("../../components/ContactForm"));
 const MiddleBlock = lazy(() => import("../../components/MiddleBlock"));
 const Container = lazy(() => import("../../common/Container"));
 const ScrollToTop = lazy(() => import("../../common/ScrollToTop"));
 const ContentBlock = lazy(() => import("../../components/ContentBlock"));
 
-
-
-
-
-
 const Home = () => {
-
-
-
   return (
     <>
       <Header />
-        <Displayhack/>
+      <Displayhack />
       <Container>
         <ScrollToTop />
         <ContentBlock
